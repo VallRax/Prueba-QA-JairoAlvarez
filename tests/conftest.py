@@ -19,7 +19,7 @@ def base_url():
 def producto_valido():
 
     """
-    Genra un producto unico para evitar conflictos entre ejecuciones de pruebas.
+    Genera un producto unico para evitar conflictos entre ejecuciones de pruebas.
     
     """
     return {
@@ -29,11 +29,52 @@ def producto_valido():
     }
 
 @pytest.fixture
-def crear_producto(base_url, producto_valido):
+def producto_creado(base_url, producto_valido):
+
+    """
+    Setup: Crea un producto antes del test.
+
+    Teardown: Elimina el producto al finalizar
+    
+    """
     response = requests.post(f"{base_url}/api/products", json=producto_valido)
+
+    assert response.status_code == 201, (
+        f"No se pudo crear un producto para el fixture."
+        f"Status: {response.status_code}"
+    )
+
     producto = response.json()
 
     yield producto
 
-    if "id" in producto:
+    #Teardown
+
+    if producto.get("id"):
         requests.delete(f"{base_url}/api/products/{producto['id']}")
+
+
+
+@pytest.fixture
+def producto_actualizado():
+
+     """
+    PayLoad valido para pruebas de actualizacion
+    
+    """
+     
+     return {
+         "name": "Producto Actualizado",
+         "price": 150,
+         "stock": 20
+     }
+
+
+@pytest.fixture
+def id_inexistente():
+
+     """
+    ID que deberia no existir
+
+    """
+     return 99999
