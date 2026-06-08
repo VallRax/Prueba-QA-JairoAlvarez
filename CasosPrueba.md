@@ -60,7 +60,7 @@
 
 ### POST
 
-### CP-005 - Obtener producto existente
+### CP-005 - Crear producto exitoso
 
 - Endpoint: POST /api/products
 - Tipo: Funcional
@@ -154,7 +154,7 @@
 } 
 ```
 - Resultado esperado: Producto creado correctamente
-- Status code esperado: 
+- Status code esperado: 200
 
 ### CP-011 - Crear producto con nombre mayor a 100 caracteres
 
@@ -210,7 +210,7 @@
 
 ### CP-014 - Eliminar producto existente
 
-- Endpoint: PUT /api/products/{id}
+- Endpoint: DELETE /api/products/{id}
 - Tipo: Funcional
 - Condición: Producto existe
 - Entrada:  
@@ -224,7 +224,7 @@
 
 ### CP-015 - Eliminar producto inexistente
 
-- Endpoint: PUT /api/products/99999
+- Endpoint: DELETE /api/products/99999
 - Tipo: Funcional
 - Condición: Producto no existe
 - Entrada:  
