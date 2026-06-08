@@ -29,7 +29,7 @@ def producto_valido():
     }
 
 @pytest.fixture
-def crear_producto(base_url, producto_valido):
+def producto_creado(base_url, producto_valido):
 
     """
     Setup: Crea un producto antes del test.
