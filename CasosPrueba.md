@@ -236,6 +236,37 @@
 - Resultado esperado: Producto no encontrado
 - Status code esperado: 404
 
+### CP-016 - Actualizar producto con precio cero
+
+- Endpoint: PUT /api/products/{id}
+- Tipo: Funcional
+- Condición: Producto existente
+- Entrada:
+``` json
+    {
+        "name": "Producto Precio Cero Update",
+        "price": 0,
+         "stock": 10
+    }
+```
+- Resultado esperado: Error de validación
+- Status code esperado: 400
+
+### CP-017 - Actualizar producto con stock negativo
+- Endpoint: PUT /api/products/{id}
+- Tipo: Funcional
+- Condición: Producto existente
+- Entrada:
+``` json
+    {
+        "name": "Producto Stock Negativo Update",
+        "price": 100,
+        "stock": -1
+    }
+```
+- Resultado esperado: Error de validación
+- Status code esperado: 400
+
 
 ### INTEGRACIÓN
 
@@ -265,6 +296,16 @@ GET /api/products/{id}
 ```
 - Resultado esperado: Los cambios realizados se guardan correctamente.
 
+### INT-003 - Crear, listar y verificar producto
+- Tipo: Integración
+
+- Flujo:
+
+POST /api/products
+↓
+GET /api/products
+
+- Resultado esperado: El producto creado aparece en el listado de productos.
 
 ### REGRESIÓN
 
@@ -277,6 +318,17 @@ GET /api/products/{id}
 ### REG-002 - Producto eliminado no puede recuperarse
 - Tipo: Regresión
 - Resultado esperado: La consulta posterior retonra 404 Not Found
+
+### REG-003 - Actualizar producto sin modificar su ID
+
+- Tipo: Regresión
+
+Flujo:
+
+PUT /api/products/{id}
+↓
+GET /api/products/{id}
+- Resultado esperado: El producto mantiene su ID original después de ser actualizado.
 
 
 
