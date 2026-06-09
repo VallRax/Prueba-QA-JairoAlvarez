@@ -104,6 +104,11 @@ lA API presenta un comportamiento estable en los escenarios funcionales, de inte
 
 Se identifico un defecto relacionado con la creacion de los productos duplicados, donde la aplicacion retorna un codigo http 500 que es una error en el servidor interno, cuando deberia de responder con un codigo de validacion controlado 400 o 409 que en este caso son un Bad request o Conflict. Recomiendo implementar un manejo de la excepcion relacionada a los productos duplicados para evitar errores internos y mejorar la robustez de la API.
 
+
+## Hallazgo adicional
+
+Durante la lectura del documento me pude percatar que la seccion de ProductService.update() no valida unicidad del nombre del producto, por ende, podria permitirse actualizar un producto utilizando el nombre de otro producto ya existente y generaria un registro duplicado. 
+
 ## Estado Final
 
 **APROBADO CON OBSERVACIONES**
