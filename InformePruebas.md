@@ -15,10 +15,10 @@
 
 | Métrica                     | Valor  |
 | --------------------------- | ------ |
-| Total de pruebas ejecutadas | 19     |
-| Pruebas exitosas            | 18     |
+| Total de pruebas ejecutadas | 23     |
+| Pruebas exitosas            | 22     |
 | Pruebas fallidas            | 1      |
-| Tasa de éxito               | 94.74% |
+| Tasa de éxito               | 95.65% |
 
 ---
 
@@ -41,6 +41,8 @@
 | CP-013 | Actualizar producto inexistente                  | PASS      |
 | CP-014 | Eliminar producto existente                      | PASS      |
 | CP-015 | Eliminar producto inexistente                    | PASS      |
+| CP-016 | Actualizar producto con precio cero | PASS |
+| CP-017 | Actualizar producto con stock negativo | PASS |
 
 ---
 
@@ -50,6 +52,7 @@
 | ------- | -------------------------------------- | --------- |
 | INT-001 | Crear y obtener producto               | PASS      |
 | INT-002 | Crear, actualizar y verificar producto | PASS      |
+| INT-003 | Crear, listar y verificar producto | PASS |
 
 ---
 
@@ -59,6 +62,7 @@
 | ------- | --------------------------------------------- | --------- |
 | REG-001 | Eliminar producto sin afectar otros registros | PASS      |
 | REG-002 | Producto eliminado no puede recuperarse       | PASS      |
+| REG-003 | Actualizar producto sin modificar su ID | PASS |
 
 ---
 
@@ -100,7 +104,7 @@ El usuario recibe el error interno del servidor en lugar de una respuesta valida
 
 # Conclusiones
 
-lA API presenta un comportamiento estable en los escenarios funcionales, de integracion y regresion ejecutados, lo cual, fueron 18 de las 19 pruebas automatizadas que tuvieron exito, calculando que es uan tasa de exito del 94.74%
+lA API presenta un comportamiento estable en los escenarios funcionales, de integracion y regresion ejecutados, lo cual, fueron 22 de las 23 pruebas automatizadas que tuvieron exito, calculando que es uan tasa de exito del 95.65%
 
 Se identifico un defecto relacionado con la creacion de los productos duplicados, donde la aplicacion retorna un codigo http 500 que es una error en el servidor interno, cuando deberia de responder con un codigo de validacion controlado 400 o 409 que en este caso son un Bad request o Conflict. Recomiendo implementar un manejo de la excepcion relacionada a los productos duplicados para evitar errores internos y mejorar la robustez de la API.
 
