@@ -222,6 +222,42 @@ def test_actualizar_producto_inexistente(base_url, id_inexistente, producto_actu
 
     assert response.status_code == 404
 
+def test_actualizar_producto_con_precio_cero(base_url, producto_creado):
+    # Arrange
+
+    producto_id = producto_creado["id"]
+    url = f"{base_url}/api/products/{producto_id}"
+    payload= { 
+        "name": "Producto precio actualizado",
+        "price": 0,
+        "stock": 10
+    }
+    #Act
+    response = requests.put(url, json=payload)
+
+    #Assert
+    assert response.status_code == 400
+
+def test_actualizar_producto_con_stock_negativo(base_url, producto_creado):
+    # Arrange
+
+    producto_id = producto_creado["id"]
+    url = f"{base_url}/api/products/{producto_id}"
+    payload= { 
+        "name": "Producto stock negativo actualizado",
+        "price": 100,
+        "stock": -1
+    }
+
+    #Act
+
+    response = requests.put(url, json=payload)
+    
+    #Assert
+
+    assert response.status_code == 400
+    
+
 
 # --------------------------------------------------------- DELETE TEST ------------------------------------------------------------------
     

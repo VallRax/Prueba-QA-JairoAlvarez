@@ -58,4 +58,32 @@ def test_crear_actualizar_y_verificar_producto(base_url, producto_valido, produc
 
     requests.delete(f"{base_url}/api/products/{producto_id}")
     
-    
+def test_crear_listar_y_verificar_producto_en_lista(base_url, producto_valido):
+    # Arrange
+    url = f"{base_url}/api/products"
+
+    # Act
+    crear_response = requests.post(url, json=producto_valido)
+
+    # Assert
+    assert crear_response.status_code == 201
+    producto_creado = crear_response.json()
+    producto_id = producto_creado["id"]
+
+    listar_response = requests.get(url)
+
+    assert listar_response.status_code == 200
+    productos = listar_response.json()
+
+    producto_encontrado = None
+
+    for producto in productos:
+        if producto["id"] == producto_id:
+            producto_encontrado = producto
+
+    assert producto_encontrado is not None
+    assert producto_encontrado["name"] == producto_valido["name"]
+    assert producto_encontrado["price"] == producto_valido["price"]
+    assert producto_encontrado["stock"] == producto_valido["stock"]
+
+    requests.delete(f"{base_url}/api/products/{producto_id}")
