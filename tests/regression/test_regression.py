@@ -56,5 +56,24 @@ def test_producto_eliminado_no_puede_recuperarse(base_url, producto_valido):
     assert delete_response.status_code == 204
     assert get_response.status_code == 404
     
+def test_actualizar_producto_no_cambia_su_id(base_url, producto_creado):
+    # Arrange
+    producto_id_original = producto_creado["id"]
+    url = f"{base_url}/api/products/{producto_id_original}"
+    payload = {
+        "name": "Producto Actualizado Regression",
+        "price": 300,
+        "stock": 30
+    }
 
-    
+    # Act
+    update_response = requests.put(url, json=payload)
+    get_response = requests.get(url)
+
+    # Assert
+    assert update_response.status_code == 200
+    assert get_response.status_code == 200
+
+    data = get_response.json()
+    assert data["id"] == producto_id_original
+    assert data["name"] == payload["name"]
