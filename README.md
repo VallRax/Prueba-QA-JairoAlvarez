@@ -1,8 +1,69 @@
 # Prueba-QA-JairoAlvarez
-Prueba tecnica QA Junior Automatizador.
+
+Este proyecto corresponde a la resolución de la Prueba Técnica QA Junior Automatizador.
+Se desarrollaron casos de prueba funcionales, de integración y de regresión para una API REST de gestión de productos utilizando Python, Pytest y Requests.
+Debido a que no se disponía de un backend Spring Boot ejecutable, se implementó una API mock utilizando Flask que replica el comportamiento esperado de los endpoints definidos en el enunciado, incluyendo el defecto identificado para la creación de productos duplicados.
+
+### Tecnologías utilizadas
+- Python 3.x
+- Pytest
+- Requests
+- Flask
+- Git / GitHub
+
 ## Instalacion
 
-pip install pytest requests
+- Crear entorno virtual:
+
+    - python -m venv venv
+
+    - Activar entorno virtual:
+
+    - venv\Scripts\activate
+
+    - Instalar dependencias:
+
+    - pip install pytest requests flask
+
+### Backend Mock
+
+Para ejecutar las pruebas se creó un archivo app.py utilizando Flask.
+
+Este archivo implementa los siguientes endpoints:
+
+GET    /api/products
+GET    /api/products/{id}
+POST   /api/products
+PUT    /api/products/{id}
+DELETE /api/products/{id}
+
+La aplicación mantiene los productos en memoria y replica las validaciones descritas en el código Java entregado en la prueba.
+
+También se simuló el defecto esperado para productos duplicados, retornando un error HTTP 500 al intentar registrar un nombre existente.
+
+### Ejecución del Backend
+
+- Iniciar la API mock:
+
+    - python app.py, La aplicación quedará disponible en: http://localhost:8080
+
+### Ejecución de Pruebas
+
+- Ejecutar todas las pruebas:
+
+    - pytest -v
+
+- Ejecutar únicamente pruebas funcionales:
+
+    - pytest tests/functional -v
+
+- Ejecutar únicamente pruebas de integración:
+
+    - pytest tests/integration -v
+
+- Ejecutar únicamente pruebas de regresión:
+
+    - pytest tests/regression -v
 
 ## Variables de entorno
 
